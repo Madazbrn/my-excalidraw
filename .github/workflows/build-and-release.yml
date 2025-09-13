@@ -17,7 +17,15 @@ jobs:
     strategy:
       fail-fast: false  # Don't cancel other jobs if one fails
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+        include:
+          - os: macos-latest
+            arch: x64
+          - os: macos-latest
+            arch: arm64
+          - os: windows-latest
+            arch: x64
+          - os: ubuntu-latest
+            arch: x64
         
     steps:
       - name: Checkout code
@@ -57,19 +65,24 @@ jobs:
         continue-on-error: false
         
       - name: Build application
-        run: npm run build
+        run: |
+          if [ "${{ matrix.os }}" = "macos-latest" ]; then
+            npm run build:mac -- --${{ matrix.arch }}
+          elif [ "${{ matrix.os }}" = "windows-latest" ]; then
+            npm run build:win
+          else
+            npm run build:linux
+          fi
         continue-on-error: false
           
       - name: Upload artifacts (macOS)
         if: matrix.os == 'macos-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: macos-build
+          name: macos-${{ matrix.arch }}-build
           path: |
             dist/*.dmg
             dist/*.zip
-            dist/mac-arm64/*.dmg
-            dist/mac/*.dmg
           retention-days: 7
           
       - name: Upload artifacts (Windows)
