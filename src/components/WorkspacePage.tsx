@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { workspaceService, type WorkspaceFile, type WorkspaceConfig } from '../services/WorkspaceService';
-import { ThemeDebug } from './ThemeDebug';
 import { 
   WorkspaceHeader, 
   WorkspaceFilters, 
