@@ -5,15 +5,18 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "author": "Your Name",
+  "author": {
+    "name": "xiaotianxt",
+    "email": "me@xiaotian.dev"
+  },
   "license": "MIT",
-  "homepage": "https://github.com/yourusername/my-excalidraw",
+  "homepage": "https://github.com/xiaotianxt/my-excalidraw",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/my-excalidraw.git"
+    "url": "https://github.com/xiaotianxt/my-excalidraw.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/my-excalidraw/issues"
+    "url": "https://github.com/xiaotianxt/my-excalidraw/issues"
   },
   "keywords": [
     "excalidraw",

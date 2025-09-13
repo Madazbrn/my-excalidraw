@@ -56,7 +56,7 @@
   },
   "publish": {
     "provider": "github",
-    "owner": "yourusername",
+    "owner": "xiaotianxt",
     "repo": "my-excalidraw"
   }
 }
