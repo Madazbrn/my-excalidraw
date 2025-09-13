@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.0] - 2024-12-13
+## [0.1.0] - 2025-09-13
 
 ### Added | 新增功能
 - 🎨 **Full Excalidraw Integration** - Complete drawing functionality with all native features
