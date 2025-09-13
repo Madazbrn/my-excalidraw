@@ -2,7 +2,7 @@
   "name": "my-excalidraw",
   "productName": "My Excalidraw",
   "description": "A modern, feature-rich Excalidraw desktop application with workspace management",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "type": "module",
   "author": {

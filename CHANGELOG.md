@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1.2] - 2025-09-13
+
+### Fixed | 修复
+- 🔧 **GitHub API Permissions** - Fixed 403 Forbidden error by disabling electron-builder auto-publish
+- 🔧 **Release Workflow** - Improved GitHub Actions permissions and error handling
+
 ## [0.1.1] - 2025-09-13
 
 ### Fixed | 修复
