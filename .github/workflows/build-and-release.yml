@@ -1,0 +1,137 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+        
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run linter
+        run: npm run lint
+        
+      - name: Build application
+        run: npm run build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Upload artifacts (macOS)
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-build
+          path: |
+            dist/*.dmg
+            dist/*.zip
+            dist/mac-arm64/*.dmg
+            dist/mac/*.dmg
+          retention-days: 7
+          
+      - name: Upload artifacts (Windows)
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: |
+            dist/*.exe
+            dist/*.msi
+            dist/*.zip
+          retention-days: 7
+          
+      - name: Upload artifacts (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-build
+          path: |
+            dist/*.AppImage
+            dist/*.deb
+            dist/*.rpm
+            dist/*.tar.gz
+          retention-days: 7
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          
+      - name: Display structure of downloaded files
+        run: ls -la artifacts/
+        
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            artifacts/**/*
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          body: |
+            ## 🎉 My Excalidraw ${{ github.ref_name }}
+            
+            A modern, feature-rich Excalidraw desktop application with workspace management.
+            
+            ### 📦 Downloads
+            
+            - **macOS**: Download the `.dmg` file for macOS (Intel and Apple Silicon)
+            - **Windows**: Download the `.exe` installer for Windows
+            - **Linux**: Download the `.AppImage` for universal Linux support, or `.deb`/`.rpm` for specific distributions
+            
+            ### 🚀 What's New
+            
+            See the [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for detailed changes.
+            
+            ### 🐛 Issues
+            
+            If you encounter any issues, please report them on our [Issues page](https://github.com/${{ github.repository }}/issues).
+            
+            ---
+            
+            ## 🎉 我的 Excalidraw ${{ github.ref_name }}
+            
+            一个现代化、功能丰富的 Excalidraw 桌面应用程序，具有工作区管理功能。
+            
+            ### 📦 下载
+            
+            - **macOS**: 下载 `.dmg` 文件（支持 Intel 和 Apple Silicon）
+            - **Windows**: 下载 `.exe` 安装程序
+            - **Linux**: 下载 `.AppImage` 通用版本，或针对特定发行版的 `.deb`/`.rpm`
+            
+            ### 🚀 更新内容
+            
+            详细更改请查看 [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)。
+            
+            ### 🐛 问题反馈
+            
+            如遇到任何问题，请在我们的 [Issues 页面](https://github.com/${{ github.repository }}/issues) 报告。
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -27,8 +27,16 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",
+    "build:dir": "tsc && vite build && electron-builder --dir",
+    "build:win": "tsc && vite build && electron-builder --win",
+    "build:mac": "tsc && vite build && electron-builder --mac",
+    "build:linux": "tsc && vite build && electron-builder --linux",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "type-check": "tsc --noEmit",
+    "preview": "vite preview",
+    "release": "./scripts/release.sh",
+    "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
     "@excalidraw/excalidraw": "^0.18.0",
