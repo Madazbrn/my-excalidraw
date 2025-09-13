@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed | 修复
 - 🔧 **GitHub API Permissions** - Fixed 403 Forbidden error by disabling electron-builder auto-publish
 - 🔧 **Release Workflow** - Improved GitHub Actions permissions and error handling
+- 🔧 **Cross-Platform Compatibility** - Fixed PowerShell compatibility issues on Windows runners
+- 🔧 **Architecture Separation** - Separate macOS x64 and arm64 builds for pure architecture packages
+- 🔧 **Caching Optimization** - Fixed cache path validation errors and optimized caching strategy
 
 ## [0.1.1] - 2025-09-13
 
