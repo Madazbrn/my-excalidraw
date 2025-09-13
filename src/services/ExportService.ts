@@ -111,6 +111,8 @@ export class ExportService {
   public async exportToCanvas(options: ExportOptions): Promise<HTMLCanvasElement | null> {
     try {
       const { elements, appState, files } = options;
+      // TODO: 实现 Canvas 导出功能
+      console.log('Canvas 导出功能待实现', { elements, appState, files });
       
       // 注意：这里需要从 @excalidraw/utils/export 导入 exportToCanvas
       // 但由于当前没有导入，我们先返回 null

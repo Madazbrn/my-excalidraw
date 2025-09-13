@@ -1,5 +1,6 @@
 import type { BinaryFiles, AppState } from "@excalidraw/excalidraw/types";
 import type { ExcalidrawElement } from "@excalidraw/excalidraw/element/types";
+import { thumbnailService } from './ThumbnailService';
 
 // 文件元数据接口
 export interface FileMetadata {
@@ -81,7 +82,7 @@ export class WorkspaceService {
       const existingIndex = allFiles.findIndex(f => f.id === fileId);
       
       // 生成缩略图
-      const thumbnail = await this.generateThumbnail(elements, appState);
+      const thumbnail = await this.generateThumbnail(elements, appState, files);
       
       const fileData: WorkspaceFile = {
         id: fileId,
@@ -280,11 +281,27 @@ export class WorkspaceService {
   /**
    * 生成缩略图
    */
-  private async generateThumbnail(elements: readonly ExcalidrawElement[], appState: AppState): Promise<string> {
-    // 这里可以实现真正的缩略图生成
-    // 暂时返回一个占位符
-    return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkV4Y2FsaWRyYXc8L3RleHQ+PC9zdmc+';
+  private async generateThumbnail(
+    elements: readonly ExcalidrawElement[], 
+    appState: AppState, 
+    files: BinaryFiles
+  ): Promise<string> {
+    try {
+      // 使用 ThumbnailService 生成真正的 Excalidraw SVG 缩略图
+      return await thumbnailService.generateSVGThumbnail(elements, appState, files, {
+        width: 200,
+        height: 150,
+        exportPadding: 10,
+        exportBackground: true,
+        exportWithDarkMode: false
+      });
+    } catch (error) {
+      console.error('生成缩略图失败:', error);
+      // 如果生成失败，返回空白缩略图
+      return thumbnailService.getEmptyThumbnailPublic(200, 150, 'svg');
+    }
   }
+
 
   /**
    * 清空工作区
