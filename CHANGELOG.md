@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1.1] - 2025-09-13
+
+### Fixed | 修复
+- 🔧 **Build Issues** - Fixed Linux .deb package build by adding author email
+- 🔧 **CI/CD Improvements** - Enhanced GitHub Actions workflow with better error handling and caching
+- 🔧 **Repository Configuration** - Updated GitHub repository URLs and publish settings
+
 ## [0.1.0] - 2025-09-13
 
 ### Added | 新增功能
