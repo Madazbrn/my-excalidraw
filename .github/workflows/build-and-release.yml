@@ -37,20 +37,24 @@ jobs:
           node-version: '18'
           cache: 'npm'
           
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-            
-      - name: Cache Electron binaries
+      - name: Cache Electron binaries (Unix)
+        if: runner.os != 'Windows'
         uses: actions/cache@v4
         with:
           path: ~/.cache/electron
-          key: ${{ runner.os }}-electron-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ matrix.arch }}-electron-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
+            ${{ runner.os }}-${{ matrix.arch }}-electron-
+            ${{ runner.os }}-electron-
+            
+      - name: Cache Electron binaries (Windows)
+        if: runner.os == 'Windows'
+        uses: actions/cache@v4
+        with:
+          path: ~\AppData\Local\electron\Cache
+          key: ${{ runner.os }}-${{ matrix.arch }}-electron-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.arch }}-electron-
             ${{ runner.os }}-electron-
           
       - name: Install dependencies
