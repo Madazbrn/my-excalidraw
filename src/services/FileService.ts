@@ -4,7 +4,7 @@ import type { ExcalidrawElement } from "@excalidraw/excalidraw/element/types";
 // 文件操作结果接口
 export interface FileResult {
   success: boolean;
-  data?: any;
+  data?: unknown;
   filePath?: string;
   error?: string;
 }
@@ -27,7 +27,7 @@ export interface ExcalidrawFileFormat {
     gridStep: number;
     gridModeEnabled: boolean;
     viewBackgroundColor: string;
-    lockedMultiSelections: Record<string, any>;
+    lockedMultiSelections: Record<string, unknown>;
   };
   files: BinaryFiles;
 }
@@ -60,10 +60,11 @@ export class FileService {
       
       if (result.success && result.data) {
         // 修复 collaborators：确保它是 Map 对象
+        const data = result.data as any; // eslint-disable-line @typescript-eslint/no-explicit-any
         const fixedData = {
-          ...result.data,
+          ...data,
           appState: {
-            ...result.data.appState,
+            ...data.appState,
             collaborators: new Map() // Excalidraw 期望的是 Map<SocketId, Collaborator>
           }
         };
@@ -149,13 +150,16 @@ export class FileService {
   /**
    * 验证文件数据格式
    */
-  public validateFileData(data: any): boolean {
+  public validateFileData(data: unknown): boolean {
     return (
       data &&
       typeof data === 'object' &&
-      Array.isArray(data.elements) &&
-      data.appState &&
-      typeof data.appState === 'object'
+      data !== null &&
+      'elements' in data &&
+      Array.isArray((data as any).elements) && // eslint-disable-line @typescript-eslint/no-explicit-any
+      'appState' in data &&
+      (data as any).appState && // eslint-disable-line @typescript-eslint/no-explicit-any
+      typeof (data as any).appState === 'object' // eslint-disable-line @typescript-eslint/no-explicit-any
     );
   }
 

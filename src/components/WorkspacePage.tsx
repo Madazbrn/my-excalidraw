@@ -45,7 +45,7 @@ export const WorkspacePage: React.FC<WorkspacePageProps> = ({
   };
 
   // 数据加载
-  const loadWorkspace = async () => {
+  const loadWorkspace = useCallback(async () => {
     setLoading(true);
     try {
       const [workspaceFiles, workspaceConfig] = await Promise.all([
@@ -59,11 +59,11 @@ export const WorkspacePage: React.FC<WorkspacePageProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadWorkspace();
-  }, []);
+  }, [loadWorkspace]);
 
   // 文件操作
   const handleDeleteFile = async (id: string) => {
@@ -92,7 +92,7 @@ export const WorkspacePage: React.FC<WorkspacePageProps> = ({
     setConfig(newConfig);
   };
 
-  const handleDuplicateFile = async (id: string) => {
+  const handleDuplicateFile = useCallback(async (id: string) => {
     const file = files.find(f => f.id === id);
     if (!file) return;
     
@@ -110,9 +110,9 @@ export const WorkspacePage: React.FC<WorkspacePageProps> = ({
     } catch (error) {
       console.error('复制文件失败:', error);
     }
-  };
+  }, [files, loadWorkspace]);
 
-  const handleRenameFile = async (id: string, newName: string) => {
+  const handleRenameFile = useCallback(async (id: string, newName: string) => {
     const file = files.find(f => f.id === id);
     if (!file) return;
     
@@ -131,7 +131,7 @@ export const WorkspacePage: React.FC<WorkspacePageProps> = ({
     } catch (error) {
       console.error('重命名文件失败:', error);
     }
-  };
+  }, [files]);
 
   // 选择操作
   const handleSelectFile = useCallback((id: string, selected: boolean) => {
@@ -167,7 +167,7 @@ export const WorkspacePage: React.FC<WorkspacePageProps> = ({
     
     // 排序
     result.sort((a, b) => {
-      let aValue: any, bValue: any;
+      let aValue: string | number | Date, bValue: string | number | Date;
       
       switch (sortBy) {
         case 'name':

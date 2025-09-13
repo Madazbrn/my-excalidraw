@@ -168,7 +168,7 @@ export class ThumbnailService {
         }
         
         case 'text': {
-          const textElement = element as any; // 临时类型断言
+          const textElement = element as ExcalidrawElement & { text?: string; fontSize?: number };
           const fontSize = Math.max(8, (textElement.fontSize || 16) * scale);
           const text = textElement.text || '';
           svgElements += `<text x="${x}" y="${y + fontSize}" font-family="Arial" font-size="${fontSize}" 

@@ -26,7 +26,7 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
 // Expose file operations API
 contextBridge.exposeInMainWorld('fileAPI', {
   openFile: () => ipcRenderer.invoke('open-file-dialog'),
-  saveFile: (data: any) => ipcRenderer.invoke('save-file-dialog', data),
+  saveFile: (data: unknown) => ipcRenderer.invoke('save-file-dialog', data),
   savePNG: (buffer: Uint8Array) => ipcRenderer.invoke('save-png-dialog', buffer),
   saveSVG: (svgString: string) => ipcRenderer.invoke('save-svg-dialog', svgString)
 })

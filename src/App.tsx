@@ -4,7 +4,6 @@ import "@excalidraw/excalidraw/index.css";
 import type { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types";
 import { fileService, workspaceService, type WorkspaceFile } from "./services";
 import { WorkspacePage } from "./components/WorkspacePage";
-import { ThemeProvider } from "./contexts/ThemeContext";
 import "./types/electron.d.ts";
 import "./types/excalidraw-augmentation.d.ts";
 
@@ -190,11 +189,12 @@ function AppContent() {
           result.filePath.split('/').pop()?.replace('.excalidraw', '') || '导入的文件' :
           '导入的文件';
           
+        const data = result.data as any; // eslint-disable-line @typescript-eslint/no-explicit-any
         await workspaceService.saveToWorkspace(
           fileName,
-          result.data.elements,
-          result.data.appState,
-          result.data.files
+          data.elements,
+          data.appState,
+          data.files
         );
         
         console.log('文件导入到工作区成功');
@@ -274,9 +274,5 @@ function AppContent() {
 }
 
 export default function App() {
-  return (
-    <ThemeProvider>
-      <AppContent />
-    </ThemeProvider>
-  );
+  return <AppContent />;
 }
