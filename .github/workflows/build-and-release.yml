@@ -37,8 +37,35 @@ jobs:
           node-version: '18'
           cache: 'npm'
           
-      - name: Cache Electron binaries (Unix)
+      - name: Create Electron cache directory (Unix)
         if: runner.os != 'Windows'
+        run: |
+          if [ "${{ runner.os }}" = "macOS" ]; then
+            mkdir -p ~/Library/Caches/electron
+          else
+            mkdir -p ~/.cache/electron
+          fi
+          
+      - name: Create Electron cache directory (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          if (!(Test-Path "$env:LOCALAPPDATA\electron\Cache")) {
+            New-Item -ItemType Directory -Path "$env:LOCALAPPDATA\electron\Cache" -Force
+          }
+        shell: pwsh
+          
+      - name: Cache Electron binaries (macOS)
+        if: runner.os == 'macOS'
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/electron
+          key: ${{ runner.os }}-${{ matrix.arch }}-electron-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.arch }}-electron-
+            ${{ runner.os }}-electron-
+            
+      - name: Cache Electron binaries (Linux)
+        if: runner.os == 'Linux'
         uses: actions/cache@v4
         with:
           path: ~/.cache/electron
@@ -51,7 +78,7 @@ jobs:
         if: runner.os == 'Windows'
         uses: actions/cache@v4
         with:
-          path: ~\AppData\Local\electron\Cache
+          path: ${{ env.LOCALAPPDATA }}\electron\Cache
           key: ${{ runner.os }}-${{ matrix.arch }}-electron-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.arch }}-electron-
