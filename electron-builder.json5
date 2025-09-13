@@ -54,9 +54,5 @@
     "category": "Graphics",
     "icon": "build/icon.png"
   },
-  "publish": {
-    "provider": "github",
-    "owner": "xiaotianxt",
-    "repo": "my-excalidraw"
-  }
+  "publish": null
 }
